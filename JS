@@ -1,0 +1,68 @@
+exports.handler = (event, context) => 
+{
+  try 
+  {
+    if (event.session.new) 
+    {
+    console.log("NEW SESSION")
+    }
+
+    switch (event.request.type) 
+    {
+      case "LaunchRequest"
+      {
+      // launch request
+      console.log('LAUNCH REQUEST')
+      context.succeed (buildSpeechResponse("Are you ready to deliver your speech?"), true),
+      {}
+      break;
+      }
+
+      case "IntentRequest"
+      {
+      // intent request
+      console.log('INTENT REQUEST')
+      break;
+      }
+
+      case "SessionEndedRequest"
+      {
+      // session ended request
+      console.log('SESSION ENDED REQUEST')
+      break;
+
+      default:
+        context.fail('INVALID REQUEST TYPE: ${event.request.type}')
+      }
+    }
+  }
+
+  catch (error) 
+  {
+  context.fail('Exception: $(error)')
+  }
+}
+
+// helpers
+buildSpeechResponse = (outputText, shouldEndSession) => 
+{
+  return 
+  {
+    outputSpeech: 
+    {
+    type: "PlainText",
+    text: outputText
+    },
+    shouldEndSession: shouldEndSession
+  }
+}
+
+generateResponse = (sessionAttribute, speechResponse) => 
+{
+  return 
+  {
+    version: "1.0",
+    sessionAttributes: sessionAttributes,
+    response: speechResponse
+  }
+}
