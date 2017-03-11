@@ -1,0 +1,16 @@
+{
+  "intents":[
+    {
+      "intent": "startRecording"
+    },
+        {
+      "intent": "waitRecording"
+    },
+       {
+      "intent": "playback"
+    },
+        {
+      "intent": "startOver"
+        }
+  ]
+}
